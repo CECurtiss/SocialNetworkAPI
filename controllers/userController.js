@@ -1,5 +1,5 @@
 const ObjectId = require("mongoose").Types;
-const { User, Thought } = require("../models");
+const User = require("../models/User");
 
 module.exports = {
   // get all users
@@ -40,6 +40,24 @@ module.exports = {
     User.findOneAndDelete({ _id: req.params.userId })
     .then((deletedUser) => res.json(deletedUser))
     .catch((err) => res.status(500).json(err))
+  },
+
+//  add new friend to users friend list
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+        {_id: req.params.friendId},
+        { $push: { friends: user._id }},
+        { new: true},
+    )
+    .then((updatedFriends) => res.json(updatedFriends))
+    .catch((err) => res.status(500).json(err))
+  },
+
+//  remove a friend from users friend list
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+        {_id: req.params.friendId}
+    )
   }
 };
 // ^export closure
