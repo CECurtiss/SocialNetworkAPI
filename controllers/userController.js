@@ -12,9 +12,9 @@ module.exports = {
 //get single user by _id
   getSingleUser(req,res) {
     User.findOne({ _id: req.params.userId })
-    .populate('thoughts')
-    .populate('friends')
-    .then((user) => res.json(user))
+    .populate({ path: 'thoughts' })
+    .populate({ path: 'friends' })
+    .then((oneUserData) => res.json(oneUserData))
     .catch((err) => res.status(500).json(err))
   },
 
