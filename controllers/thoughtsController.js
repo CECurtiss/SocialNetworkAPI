@@ -42,8 +42,8 @@ module.exports = {
     //  Create reaction stored in single Thoughts reactions array field
       createReaction(req,res) {
           Thought.findOneAndUpdate(
-            { _id: req.params.reactionId},
-            { $push: { reactions: thought._id }},
+            { _id: req.params.thoughtId },
+            { $push: { reactions: req.body }},
             { new: true },
             )
           .then((updatedReactions) => res.json(updatedReactions))
